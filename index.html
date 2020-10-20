@@ -1,0 +1,85 @@
+<html>
+<head>
+	<title>元智人口分布</title>
+	<style>
+		p {
+		  font-size: 10px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<img src="picture/campus.jpg" width="300" height="200" alt="yzu_map" style="position:absolute;top:0px;left:2px;z-index:2"></img>
+	<img id="yzu1" name="0" src="picture/yzu1.png" onmouseover="mouseon(this)" onmouseout="mouseoff(this)" width="42" height="28" alt="yzu1" style="position:absolute;top:75px;left:61px;z-index:5;"></img>
+	<img id="yzu2" name="1" src="picture/yzu2.png" onmouseover="mouseon(this)" onmouseout="mouseoff(this)" width="33" height="32" alt="yzu2" style="position:absolute;top:28px;left:124px;z-index:5;"></img>
+	<img id="yzu3" name="2" src="picture/yzu3.png" onmouseover="mouseon(this)" onmouseout="mouseoff(this)" width="33" height="26" alt="yzu3" style="position:absolute;top:79px;left:126px;z-index:5;"></img>
+	<img id="yzu5" name="3" src="picture/yzu5.png" onmouseover="mouseon(this)" onmouseout="mouseoff(this)" width="50" height="37" alt="yzu5" style="position:absolute;top:28px;left:74px;z-index:5;"></img>
+	<img id="yzu6" name="4" src="picture/yzu6.png" onmouseover="mouseon(this)" onmouseout="mouseoff(this)" width="35" height="32" alt="yzu6" style="position:absolute;top:42px;left:52px;z-index:5;"></img>
+	<img id="yzu7" name="5" src="picture/yzu7.png" onmouseover="mouseon(this)" onmouseout="mouseoff(this)" width="36" height="24" alt="yzu7" style="position:absolute;top:79px;left:157px;z-index:5;"></img>
+	<img id="sport_field" name="6" src="picture/sport_field.png" onmouseover="mouseon(this)" onmouseout="mouseoff(this)" width="32" height="30" alt="sport_field" style="position:absolute;top:65px;left:227px;z-index:5;"></img>
+	<img id="health_center" name="7" src="picture/health_center.png" onmouseover="mouseon(this)" onmouseout="mouseoff(this)" width="36" height="24" alt="health_center" style="position:absolute;top:13px;left:241px;z-index:5;"></img>
+	<img id="activity_center" name="8" src="picture/activity_center.png" onmouseover="mouseon(this)" onmouseout="mouseoff(this)" width="32" height="22" alt="activity_center" style="position:absolute;top:44px;left:242px;z-index:5;"></img>
+	<img id="playground" name="9" src="picture/playground.png" onmouseover="mouseon(this)" onmouseout="mouseoff(this)" width="78" height="45" alt="playground" style="position:absolute;top:15px;left:172px;z-index:5;"></img>
+	<img id="student_dormitory" name="10" src="picture/student_dormitory.png" onmouseover="mouseon(this)" onmouseout="mouseoff(this)" width="40" height="32" alt="student_dormitory" style="position:absolute;top:50px;left:264px;z-index:5;"></img>
+	<img id="professor_dormitory" name="11" src="picture/professor_dormitory.png" onmouseover="mouseon(this)" onmouseout="mouseoff(this)" width="30" height="45" alt="professor_dormitory" style="position:absolute;top:142px;left:26px;z-index:5;"></img>
+		
+	<p id="names" style="position:absolute;top:125px;left:210px;z-index:5; "></p>
+	<p id="population" style="position:absolute;top:145px;left:210px;z-index:5; "></p>
+	<p id="status" style="position:absolute;top:165px;left:210px;z-index:5; "></p>
+	<p id="updatetime" style="position:absolute;top:185px;left:210px;z-index:5; "></p>
+</body>
+
+<script>
+	var imgPath = "picture/";
+	var yzu_names = ["元智一館","元智二館","元智三館","元智五館","元智六館",
+	"元智七館","運動中心","健康休閒中心","活動中心","操場","學生宿舍","教授宿舍"];
+	var yzu_populations = [521,349,303,292,105,220,76,41,62,88,1031,55];
+	var yzu_status = ["擁擠","略擠","普通","舒適"];
+	function mouseon(obj) {
+		var nid = parseInt(obj.name);
+		document.getElementById(obj.id).src = imgPath + obj.id + "s.png";
+		document.getElementById("names").innerHTML = "名稱: " + yzu_names[nid];
+		var ypopulation = "" , ystatus = "";
+		if (yzu_populations[nid] > 500){
+			ypopulation =  yzu_populations[nid].toString().fontcolor("red");
+			ystatus = yzu_status[0].fontcolor("red");
+		}else if(yzu_populations[nid] > 300){
+			ypopulation =  yzu_populations[nid].toString().fontcolor("#ffbf00");
+			ystatus = yzu_status[1].fontcolor("#ffbf00");
+		}else if(yzu_populations[nid] > 200){
+			ypopulation =  yzu_populations[nid].toString().fontcolor("#e6e600");
+			ystatus = yzu_status[2].fontcolor("#e6e600");
+		}else{
+			ypopulation =  yzu_populations[nid].toString().fontcolor("#00cc00");
+			ystatus = yzu_status[3].fontcolor("#00cc00");
+		}
+		document.getElementById("population").innerHTML = "目前人數: " + ypopulation;
+		document.getElementById("status").innerHTML = "狀態: " + ystatus;
+		var NowDate=new Date();
+		var mon=NowDate.getMonth()+1;
+		var d=NowDate.getDate();
+	　	var h=NowDate.getHours();		
+		if (h < 10){
+			h = "0" + h.toString();
+		}
+		var m=NowDate.getMinutes();
+		if (m < 10){
+			m = "0" + m.toString();
+		}
+		var s=NowDate.getSeconds();　
+		if (s < 10){
+			s = "0" + s.toString();
+		}
+		document.getElementById("updatetime").innerHTML = "更新時間: " +mon+"/"+d+" "+h+":"+m+":"+s;
+	}
+	function mouseoff(obj) {
+		document.getElementById(obj.id).src = imgPath + obj.id + ".png";
+		document.getElementById("names").innerHTML = "";
+		document.getElementById("population").innerHTML = "";
+		document.getElementById("status").innerHTML = "";
+		document.getElementById("updatetime").innerHTML = "";
+	}
+</script>
+
+</html>
